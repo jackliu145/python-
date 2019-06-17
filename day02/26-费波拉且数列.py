@@ -9,7 +9,7 @@ def fib(num):
 
 g = fib(6)
 
-next(g)
+next(g)   #
 
 for n in g:
     print(n)
