@@ -1,7 +1,7 @@
 class Student(object):   # object 父类
-    def __init__(this, name, score):    # 构造函数
-        this.name = name
-        this.score = score
+    def __init__(self, name, score):    # 构造函数
+        self.name = name
+        self.score = score
     
     def print_score(self):
         print(self.score)
