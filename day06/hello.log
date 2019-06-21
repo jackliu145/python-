@@ -1,0 +1,5 @@
+03-18-2019 21:55 : DTC Install error = 0, Enter MsDtcAdvancedInstaller::Configure, base\wcp\plugins\msdtc\msdtcadvancedinstaller\msdtcadvancedinstaller.cpp (419)
+03-18-2019 21:55 : DTC Install error = 0, Action: None, base\wcp\plugins\msdtc\msdtcadvancedinstaller\msdtcadvancedinstaller.cpp (448)
+03-18-2019 21:55 : DTC Install error = 0, Entering CreateXATmSecurityKeyCNG, base\wcp\plugins\msdtc\msdtcadvancedinstaller\msdtcadvancedinstaller.cpp (1752)
+03-18-2019 21:55 : DTC Install error = 0, Exiting CreateXATmSecurityKeyCNG, base\wcp\plugins\msdtc\msdtcadvancedinstaller\msdtcadvancedinstaller.cpp (1928)
+03-18-2019 21:55 : DTC Install error = 0, Exit MsDtcAdvancedInstaller::Configure, base\wcp\plugins\msdtc\msdtcadvancedinstaller\msdtcadvancedinstaller.cpp (506)
