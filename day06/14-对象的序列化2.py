@@ -17,7 +17,7 @@ stu.age = 23
 print(stu)
 
 
-l = json.dumps(stu, default=lambda x : x.__dict__) 
+l = json.dumps(stu, default=lambda x : x.__dict__)    #使用
 
 print(l)
 
