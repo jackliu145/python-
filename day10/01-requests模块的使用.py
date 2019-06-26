@@ -5,7 +5,8 @@ def mk_img_dir(*args):
     save_path = args[0]
     image_temp = args[1]
     if not os.path.exists(os.path.dirname(save_path)):
-            os.makedirs(os.path.dirname(save_path))
+        os.makedirs(os.path.dirname(save_path))
+	
     with open(save_path, 'wb') as w:
         w.write(requests.get(image_temp).content)
 
@@ -29,8 +30,8 @@ def save_img(url):
         print(image_url.path)
         save_path = 'D:/pic2' + image_url.path
         print(save_path)
-        # t = threading.Thread(target=mk_img_dir, args=(save_path, image_temp))
-        # t.start()
+        t = threading.Thread(target=mk_img_dir, args=(save_path, image_temp))
+        t.start()
         # if not os.path.exists(os.path.dirname(save_path)):
         #     os.makedirs(os.path.dirname(save_path))
         # with open(save_path, 'wb') as w:
@@ -49,19 +50,19 @@ def save_img(url):
 # save_img('https://www.zbjuran.com/quweitupian/')
 # https://www.zbjuran.com/mei/xinggan/201906/96304.html
 
-# save_img('https://www.zbjuran.com/mei/xinggan/201906/96304.html')
+save_img('https://www.zbjuran.com/mei/xinggan/201906/96304.html')
 # https://www.zbjuran.com/mei/xinggan/
 # save_img('https://www.zbjuran.com/mei/xinggan/')
 
 
 #没有下一页的就开始遍历页面中的图片连接
 # <a target="_blank" href="/mei/xiaohua/201809/92511.html"></a>
-url = r'https://www.zbjuran.com/mei/xinggan/'
-response = requests.get(url)
-pic_reg = r'<a\s+.*></a>'
-pic_pages = re.findall(pic_reg, response.text)
-for pic in pic_pages:
-    pic_absolute_path = urljoin(url, pic)
-    print(pic_absolute_path)  
+# url = r'https://www.zbjuran.com/mei/xinggan/'
+# response = requests.get(url)
+# pic_reg = r'<a\s+.*></a>'
+# pic_pages = re.findall(pic_reg, response.text)
+# for pic in pic_pages:
+#     pic_absolute_path = urljoin(url, pic)
+#     print(pic_absolute_path)  
 
 
