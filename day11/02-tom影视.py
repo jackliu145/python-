@@ -39,8 +39,8 @@ def downloadpic(url):
     # print(url)
     #拼接出本地磁盘的地址
     parentdir = dest + url[1]
-    # if not os.path.exists(parentdir):
-    #     os.mkdir(parentdir)
+    if not os.path.exists(parentdir):
+        os.mkdir(parentdir)
 
     r = requests.get(url[0])
     r.encoding = 'utf-8'
@@ -51,7 +51,9 @@ def downloadpic(url):
     reg = r'data-original=\"(https://.+)\"\s+title=\"[0-9a-zA-Z\u4e00-\u9fa5]+\"'
     result = re.findall(reg, r.text)
     for x in result:
-        print(x)
+        filename = os.path.basename(x)
+        with open(os.path.join(parentdir, filename), 'wb') as f:
+            f.write(requests.get(x).content)
     return result
 
 
