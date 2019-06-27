@@ -1,48 +1,7 @@
 import requests, re, threading, os
 from urllib.parse import urlparse
-from sqlalchemy import Column, String, create_engine, Integer
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 
-dest = 'D:/hellocccc/'
-
-def initDb():
-    # 初始化数据库连接:
-    engine = create_engine('mysql+mysqlconnector://root:root@localhost:3306/test?charset=utf8', encoding='utf-8', echo=True)
-    # 创建DBSession类型:
-    DBSession = sessionmaker(bind=engine)
-    session = DBSession()
-    return session
-
-def close(session):
-    # 提交即保存到数据库:
-    session.commit()
-    session.close()
-
-# 创建对象的基类:
-Base = declarative_base()
-session = initDb()
-
-class Pic(Base):
-    # 表的名字:
-    __tablename__ = 't_pic'
-
-    # 表的结构:
-    id = Column(Integer(), primary_key=True)
-    pic_name = Column(String(255))
-    pic_dir = Column(String(255))
-    pic_type_name = Column(String(255))
-    url = Column(String(255))
-    
-
-def savePic(url, pic_name, pic_dir, pic_type_name):
-    '''保存图片信息到数据库中 
-    '''
-    pic = Pic(id=None, pic_name=pic_name, pic_dir=pic_dir, pic_type_name=pic_type_name, url=url)
-    session.add(pic)
-    # print(url, pic_dir, pic_type_name)
-    session.commit()
-    pass
+dest = 'E:/hellocccc/'
 
 def get_base_url(url):
     parse_result = urlparse(url)
@@ -70,21 +29,17 @@ def enum_type_pic(pic_type_url, pic_type_name):
     result2 = [(baseurl + x, y) for x, y in result]
     # 开启多线程下载图片吧
     for x in result2:
-        # t = threading.Thread(target=downloadpic, args = (*x, pic_type_name))
-        # t.start()
+        t = threading.Thread(target=downloadpic, args = (*x, pic_type_name))
+        t.start()
         # downloadpic(*x, pic_type_name)
-        pass
-    # 网页中如果有下一页
-    # 找到下一页按钮的url
-    next_page_reg = r'<a href=[\'|\"](\w*\.html)[\'|\"]>\u4e0b\u4e00\u9875</a>'
-    next_page = re.findall(next_page_reg, response.text)
+    # 下一页
+    next_page_reg = r'<a\s+href=\"(/tupian/list\-[\u4e00-\u9fa5]{4}\-\d*\.html)\"\s+title=\"\u4e0b\u4e00\u9875\">\u4e0b\u4e00\u9875</a>'
+    next_page = re.findall(next_page_reg, r.text)
     print(next_page)
-    if next_page:
-        next_page_url = urljoin(baseurl, next_page[0])
+    if len(next_page) > 0:
+        next_page_url = baseurl + next_page[0]
         print('进入下一页:',next_page_url)
-        enum_type_pic(next_page_url)
-        
-
+        enum_type_pic(next_page_url, pic_type_name)
     # return [(baseurl + x, y) for x, y in result]
 
 def downloadpic(url, pic_dir, pic_type_name):
@@ -92,7 +47,6 @@ def downloadpic(url, pic_dir, pic_type_name):
     parentdir = os.path.join(dest, pic_type_name, pic_dir)
     if not os.path.exists(parentdir):
         os.makedirs(parentdir)
-    print(parentdir)
     r = requests.get(url)
     r.encoding = 'utf-8'
 
@@ -103,10 +57,8 @@ def downloadpic(url, pic_dir, pic_type_name):
     result = re.findall(reg, r.text)
     for x in result:
         filename = os.path.basename(x)
-        # 打印url, 名称, 文件夹, 类别
-        savePic(x, filename, pic_dir, pic_type_name)
-        # with open(os.path.join(parentdir, filename), 'wb') as f:
-        #     f.write(requests.get(x).content)
+        with open(os.path.join(parentdir, filename), 'wb') as f:
+            f.write(requests.get(x).content)
 
     return result
 
@@ -114,10 +66,10 @@ def downloadpic(url, pic_dir, pic_type_name):
 
 def main():
     r = get_home_page(r'https://www.2019rx.com/index/home.html')
-    # for x in r:
-    #     t = threading.Thread(target=enum_type_pic, args=(*x,))
-    #     t.start()
     for x in r:
-        enum_type_pic(*x)
+        if x == r[0]:
+            continue
+        t = threading.Thread(target=enum_type_pic, args=(*x,))
+        t.start()
 
 main()
