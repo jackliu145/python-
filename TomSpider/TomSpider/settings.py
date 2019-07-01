@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for ZhipinSpider project
+# Scrapy settings for TomSpider project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'ZhipinSpider'
+BOT_NAME = 'TomSpider'
 
-SPIDER_MODULES = ['ZhipinSpider.spiders']
-NEWSPIDER_MODULE = 'ZhipinSpider.spiders'
+SPIDER_MODULES = ['TomSpider.spiders']
+NEWSPIDER_MODULE = 'TomSpider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'ZhipinSpider (+http://www.yourdomain.com)'
+#USER_AGENT = 'TomSpider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -39,30 +39,24 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-<<<<<<< HEAD
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
-=======
 DEFAULT_REQUEST_HEADERS = {
   "User-Agent" : "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0",
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Language': 'en',
+  'cookie': 'cookie: __cfduid=d8d25ddf0202400d2ae3ddd6f4d14a0a31561873885; _ga=GA1.2.1205080804.1561875083; _gid=GA1.2.687622847.1561875083; Hm_lvt_38c8dfe05b37787fa2e8058304bebe38=1561875082,1561886131; Hm_lvt_4f8fd230fdaa33c7c35d614fbbfc7319=1561875083,1561886139; _gat_gtag_UA_137560781_1=1; _gat_gtag_UA_137560781_6=1; Hm_lpvt_38c8dfe05b37787fa2e8058304bebe38=1561886220; Hm_lpvt_4f8fd230fdaa33c7c35d614fbbfc7319=1561886221',
 }
->>>>>>> 4d818188039a4864460a0150c2024c8d283ebbe3
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'ZhipinSpider.middlewares.ZhipinspiderSpiderMiddleware': 543,
+#    'TomSpider.middlewares.TomspiderSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'ZhipinSpider.middlewares.ZhipinspiderDownloaderMiddleware': 543,
-#}
+# DOWNLOADER_MIDDLEWARES = {
+#    'TomSpider.middlewares.TomspiderDownloaderMiddleware': 543,
+# }
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -72,15 +66,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-<<<<<<< HEAD
-#ITEM_PIPELINES = {
-#    'ZhipinSpider.pipelines.ZhipinspiderPipeline': 300,
-#}
-=======
 ITEM_PIPELINES = {
-   'ZhipinSpider.pipelines.ZhipinspiderPipeline': 300,
+   'TomSpider.pipelines.TomspiderPipeline': 300,
 }
->>>>>>> 4d818188039a4864460a0150c2024c8d283ebbe3
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -100,5 +88,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_ENABLED = True
 #HTTPCACHE_EXPIRATION_SECS = 0
 #HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
+HTTPCACHE_IGNORE_HTTP_CODES = [301]
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
