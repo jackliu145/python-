@@ -1,0 +1,13 @@
+{
+    "credentials": "include",
+    "headers": {
+        "accept": "application/json, text/plain, */*",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "content-type": "application/x-www-form-urlencoded;charset=UTF-8"
+    },
+    "referrer": "https://lncn.org/",
+    "referrerPolicy": "no-referrer-when-downgrade",
+    "body": "code=LTc4MTE5OTYwNDY1MjU%3D",
+    "method": "POST",
+    "mode": "cors"
+}
