@@ -3,6 +3,10 @@ from lxml import etree
 from urllib.parse import urljoin
 import os
 import threading
+# from pymongo import MongoClient
+
+# client = MongoClient()
+# db = client['maomi']
 
 def parse_home_page(url):
     '''
@@ -75,12 +79,13 @@ def download_image(save_path, url):
      with open(save_path, 'wb') as f:
         f.write(requests.get(url).content)
         print(save_path, '写入成功')
+    # db.images.insert_one({'path': save_path, 'url': url})
 
 if __name__ == "__main__":
-    for image_type in parse_home_page('https://www.69aff.com/index/home.html'):
+    for image_type in parse_home_page('https://www.69akb.com/index/home.html'):
         print('开始解析：' + image_type['type'])
         for images in parse_image_type(image_type):
-            # parse_image_url(images)
+            parse_image_url(images)
             t = threading.Thread(target=parse_image_url, args=(images, ))
             t.start()
             pass
