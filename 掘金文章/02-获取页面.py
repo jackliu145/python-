@@ -34,14 +34,17 @@ try:
     #         f.write(response.content) 
         
     # print(aa)
-    bb = aa.replace('data-src', 'src').replace(r'src="https://user-gold-cdn.xitu.io/2018/9/9/', r'src="/pic/')
+    # bb = aa.replace('data-src', 'src').replace(r'src="https://user-gold-cdn.xitu.io/2018/9/9/', r'src="/pic/')
+    bb = aa.replace('data-src', 'src').replace(r'format/webp/ignore-error/1', r'')
+
+    # format/webp/ignore-error/1
 
     with open('123.html', 'w') as f:
         f.write(bb)
     options = { 'encoding': "UTF-8" }  
-    # with open('123.html', 'r') as f:
-    #     pdfkit.from_file(f, 'article2.pdf', options=options)
-    pdfkit.from_string(r'ljsflslfjslfjl<img src="http://localhost:8080/pic/165be03d7505b1af" />', 'article3.pdf', options=options)
+    with open('123.html', 'r') as f:
+        pdfkit.from_file(f, 'article2.pdf', options=options)
+    # pdfkit.from_string(r'ljsflslfjslfjl<img src="http://localhost:8080/pic/165be03d7505b1af" />', 'article3.pdf', options=options)
 
 
     
