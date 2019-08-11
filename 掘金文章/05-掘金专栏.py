@@ -12,13 +12,8 @@ import re
 browser = webdriver.Chrome()
 
 try:
-    browser.get('https://juejin.im/post/5b94e93b5188255c672e901e')
-    # browser.get('https://juejin.im/post/5b037d5c518825426e024473')
-    # browser.get('https://juejin.im/post/5d42f48cf265da03ab422e08')
-    # browser.get('https://juejin.im/post/59e0110e6fb9a0452b483c9d')
-    # browser.get('https://juejin.im/post/5d427f306fb9a06b122f1b94')
-
-
+    url = 'https://juejin.im/post/5b737671518825612a227e91'
+    browser.get(url)
     wait = WebDriverWait(browser, 10)
     wait.until(EC.presence_of_element_located((By.TAG_NAME, 'article')))
     article = browser.find_element_by_tag_name('article')
