@@ -9,7 +9,8 @@ def get_ssr_item():
     headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36'
     }
-    response = requests.get('https://xxx.ishadowx.org/', headers=headers)
+    proxies={'http':'127.0.0.1:1087'}
+    response = requests.get('https://free.ishadowx.biz/', proxies=proxies, headers=headers)
 
     html = etree.HTML(response.text)
 
