@@ -8,11 +8,15 @@ import requests
 import os 
 from urllib import parse
 import re
+import sys
 
+if len(sys.argv) != 2:
+    exit(-1)
 browser = webdriver.Chrome()
-
 try:
-    url = 'https://juejin.im/post/5b737671518825612a227e91'
+    
+    url = sys.argv[1]
+    # url = 'https://juejin.im/post/5b737671518825612a227e91'
     browser.get(url)
     wait = WebDriverWait(browser, 10)
     wait.until(EC.presence_of_element_located((By.TAG_NAME, 'article')))

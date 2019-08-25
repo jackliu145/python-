@@ -9,9 +9,10 @@ def get_ssr_item():
     headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36'
     }
-    proxies={'http':'127.0.0.1:1087'}
-    response = requests.get('https://free.ishadowx.biz/', proxies=proxies, headers=headers)
-
+    # 如果网站被墙，开启代理
+    # proxies={'http':'127.0.0.1:1087'}
+    # response = requests.get('https://free.ishadowx.biz/', proxies=proxies, headers=headers)
+    response = requests.get('https://free.ishadowx.biz/', headers=headers)
     html = etree.HTML(response.text)
 
     # //*[@id="portfolio"]/div[2]/div[2]/div/div[1]
