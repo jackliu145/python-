@@ -1,0 +1,7 @@
+{
+    "server": "b.isxb.top",
+    "server_port": 16274,
+    "password": "isx.yt-27462436",
+    "method": "aes-256-cfb",
+    "local_port": 1080
+}

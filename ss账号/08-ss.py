@@ -5,7 +5,6 @@ import re
 import json
 import io
 
-# v2ray客户端配置
 
 config_str = r'{"log":{"loglevel":"warning"},"inbounds":[{"port":1080,"listen":"127.0.0.1","tag":"socks-inbound","protocol":"socks","settings":{"auth":"noauth","udp":false,"ip":"127.0.0.1"},"sniffing":{"enabled":true,"destOverride":["http","tls"]}}],"outbounds":[{"protocol":"shadowsocks","settings":{"servers":[{"address":"b.isxc.top","port":17998,"password":"isx.yt-28371051","method":"aes-256-cfb"},{"address":"c.isxc.top","port":13169,"password":"isx.yt-44267957","method":"aes-256-cfb"},{"address":"a.isxc.top","port":16455,"password":"isx.yt-16456189","method":"aes-256-cfb"},{"address":"c.isxb.top","port":11619,"password":"isx.yt-45213678","method":"aes-256-cfb"}]}}],"routing":{"domainStrategy":"IPOnDemand","rules":[{"type":"field","outboundTag":"direct","domain":["geosite:cn"]},{"type":"field","outboundTag":"direct","ip":["geoip:cn","geoip:private"]},{"type":"field","ip":["geoip:private"],"outboundTag":"blocked"},{"type":"field","domain":["geosite:category-ads"],"outboundTag":"blocked"}]},"dns":{"hosts":{"domain:v2ray.com":"www.vicemc.net","domain:github.io":"pages.github.com","domain:wikipedia.org":"www.wikimedia.org","domain:shadowsocks.org":"electronicsrealm.com"},"servers":["1.1.1.1",{"address":"114.114.114.114","port":53,"domains":["geosite:cn"]},"8.8.8.8","localhost"]},"policy":{"levels":{"0":{"uplinkOnly":0,"downlinkOnly":0}},"system":{"statsInboundUplink":false,"statsInboundDownlink":false}},"other":{}}'
 
@@ -14,20 +13,24 @@ def get_ssr_item():
     headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36'
     }
-    response = requests.get('https://free.ishadowx.biz/', headers=headers)
+    my_proxies={"socks5:":"socks5://127.0.0.1:1080","https":"socks5://127.0.0.1:1080"}
+    response = requests.get('https://www.youneed.win/free-ssr', proxies=my_proxies, headers=headers)
     html = etree.HTML(response.text)
-
-    cards = html.xpath(r'//div[@class="hover-text"]')
-    for card in cards:
-        item = {}
-        ipAddr = item['address'] = ''.join(card.xpath('./h4[1]/span/text()')).strip()
-        # 简单的过滤
-        reg = re.compile(r'(\w+\.)+\w+') 
-        if not reg.findall(ipAddr):
+    trs= html.xpath(r'//div//table//tr')
+    trs = trs[1:]
+    for tr in trs:
+        td = tr.xpath(r'.//td/text()')
+        print(len(td))
+        if len(td) != 6:
             continue
-        item['port'] = int(''.join(card.xpath('./h4[2]/span/text()')).strip())
-        item['password'] = ''.join(card.xpath('./h4[3]/span/text()')).strip()
-        item['method'] = ''.join(card.xpath('./h4[4]/text()')).strip()[7:]
+        if td[3] != 'aes-256-cfb':
+            continue
+        item = {
+            "password" : td[2],
+            "method" : td[3],
+            "address" : td[0],
+            "port" : int(td[1]),
+            }
         yield item
 
 if __name__ == "__main__":
